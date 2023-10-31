@@ -76,7 +76,7 @@ struct ActiveWorkoutView: View {
                 .padding(.horizontal)
                     
                 ForEach(Array(workout.exercises.enumerated()), id: \.element.id) { index, exercise in
-                    ExerciseView(exercise: $workout.exercises[index])
+                    ExerciseView(viewModel: ExerciseViewModel(exercise: workout.exercises[index]))
                 }
                 
                 

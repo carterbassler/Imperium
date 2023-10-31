@@ -58,6 +58,8 @@ struct aSet : Identifiable, Hashable, Codable {
 }
 
 // Mock Data
+let set1 = aSet(id : "1", weight: "50", reps: "10", isCompleted: true)
+
 
 let sets1 = [
     aSet(id : "1", weight: "50", reps: "10", isCompleted: true),

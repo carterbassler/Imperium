@@ -8,18 +8,20 @@
 import SwiftUI
 
 struct ExerciseView: View {
-    @Binding var exercise : Exercise
+    @StateObject var viewModel : ExerciseViewModel
     @State private var showContextMenu: Bool = false
     @State private var showAlert = false
+    @State private var showPickExercisePopup : Bool = false
+    
     var body: some View {
         VStack {
             HStack {
-                Text(exercise.name)
+                Text(viewModel.exercise.name)
                     .fontWeight(.semibold)
                 Spacer()
                 Menu {
-                    Button("Change Exercise", action: changeWorkout)
-                    Button("Delete Exercise", action: deleteExercise)
+                    Button("Change Exercise", action: { showPickExercisePopup.toggle() })
+                    Button("Delete Exercise", action: { Task { try await viewModel.deleteExercise() }})
                 } label: {
                     Image(systemName: "ellipsis")
                         .foregroundColor(.black)
@@ -40,17 +42,15 @@ struct ExerciseView: View {
                 Spacer()
             }
             
-            //List {
-                ForEach(Array(exercise.sets.enumerated()), id: \.element.id) { index, set in
-                    SetView(set: $exercise.sets[index], setNumber: index + 1)
-                }
-                .onDelete(perform: deleteSet)
-            //}
-//            .listStyle(PlainListStyle())
-//            .environment(\.defaultMinListRowHeight, 0)
+            ForEach(Array(viewModel.exercise.sets.enumerated()), id: \.element.id) { index, set in
+                SetView(viewModel: SetViewModel(set: viewModel.exercise.sets[index], setNumber: index + 1))
+            }
+            .onDelete(perform: viewModel.deleteSet)
             
             Button {
-                exercise.sets.append(aSet(id : UUID().uuidString, weight: "", reps: "", isCompleted: false))
+                Task {
+                    try await viewModel.addSet()
+                }
             } label : {
                 Text("Add Set")
                     .font(.subheadline)
@@ -61,22 +61,24 @@ struct ExerciseView: View {
                     .cornerRadius(8)
             }
         }
+        .overlay(
+            Group {
+                if showPickExercisePopup {
+                    PickExerciseView(exerciseName: $viewModel.exercise.name, showPopup: $showPickExercisePopup)
+                        .frame(width: 300, height: 200)
+                        .background(Color.white)
+                        .cornerRadius(20)
+                        .shadow(radius: 20)
+                        .onTapGesture {
+                            //showPickExercisePopup.toggle()
+                        }
+                }
+            }
+        )
     }
 }
 
-func deleteExercise() {
-    
-}
-
-func deleteSet(at offsets: IndexSet) {
-    print("DELETED")
-}
-
-func changeWorkout() {
-    print("Hello")
-}
-
 #Preview {
-    @State var exercisePreview = exercise1
-    return ExerciseView(exercise: $exercisePreview)
+    @State var exercisePreview = ExerciseViewModel(exercise: exercise1)
+    return ExerciseView(viewModel: exercisePreview)
 }

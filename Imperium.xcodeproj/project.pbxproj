@@ -19,6 +19,8 @@
 		AD2884B02AF04DF2006A558C /* UserListConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2884AF2AF04DF2006A558C /* UserListConfig.swift */; };
 		AD2884B22AF051D8006A558C /* UserListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2884B12AF051D8006A558C /* UserListView.swift */; };
 		AD2884B42AF0521D006A558C /* UserListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2884B32AF0521D006A558C /* UserListViewModel.swift */; };
+		AD2884B82AF1A43D006A558C /* ExerciseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2884B72AF1A43D006A558C /* ExerciseViewModel.swift */; };
+		AD2884BA2AF1A758006A558C /* SetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2884B92AF1A758006A558C /* SetViewModel.swift */; };
 		AD8A2F392AD60689006D17E2 /* ImperiumApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8A2F382AD60689006D17E2 /* ImperiumApp.swift */; };
 		AD8A2F3B2AD60689006D17E2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8A2F3A2AD60689006D17E2 /* ContentView.swift */; };
 		AD8A2F3D2AD6068B006D17E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD8A2F3C2AD6068B006D17E2 /* Assets.xcassets */; };
@@ -73,7 +75,7 @@
 		AD8A2FE22ADCC60A006D17E2 /* StartWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8A2FE12ADCC60A006D17E2 /* StartWorkoutView.swift */; };
 		AD8A2FE52ADCCCAB006D17E2 /* WorkoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8A2FE42ADCCCAB006D17E2 /* WorkoutCell.swift */; };
 		AD8A2FE72ADCDBF0006D17E2 /* WorkoutService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8A2FE62ADCDBF0006D17E2 /* WorkoutService.swift */; };
-		AD8A2FEB2ADEDBB9006D17E2 /* AddExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8A2FEA2ADEDBB8006D17E2 /* AddExerciseView.swift */; };
+		AD8A2FEB2ADEDBB9006D17E2 /* PickExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8A2FEA2ADEDBB8006D17E2 /* PickExerciseView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +108,8 @@
 		AD2884AF2AF04DF2006A558C /* UserListConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListConfig.swift; sourceTree = "<group>"; };
 		AD2884B12AF051D8006A558C /* UserListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListView.swift; sourceTree = "<group>"; };
 		AD2884B32AF0521D006A558C /* UserListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListViewModel.swift; sourceTree = "<group>"; };
+		AD2884B72AF1A43D006A558C /* ExerciseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseViewModel.swift; sourceTree = "<group>"; };
+		AD2884B92AF1A758006A558C /* SetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewModel.swift; sourceTree = "<group>"; };
 		AD8A2F352AD60688006D17E2 /* Imperium.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Imperium.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD8A2F382AD60689006D17E2 /* ImperiumApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImperiumApp.swift; sourceTree = "<group>"; };
 		AD8A2F3A2AD60689006D17E2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -156,7 +160,7 @@
 		AD8A2FE12ADCC60A006D17E2 /* StartWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartWorkoutView.swift; sourceTree = "<group>"; };
 		AD8A2FE42ADCCCAB006D17E2 /* WorkoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCell.swift; sourceTree = "<group>"; };
 		AD8A2FE62ADCDBF0006D17E2 /* WorkoutService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutService.swift; sourceTree = "<group>"; };
-		AD8A2FEA2ADEDBB8006D17E2 /* AddExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExerciseView.swift; sourceTree = "<group>"; };
+		AD8A2FEA2ADEDBB8006D17E2 /* PickExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickExerciseView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -518,7 +522,7 @@
 				AD8A2FD92AD980E8006D17E2 /* ActiveWorkoutView.swift */,
 				AD8A2FDD2ADCA41C006D17E2 /* ExerciseView.swift */,
 				AD8A2FE12ADCC60A006D17E2 /* StartWorkoutView.swift */,
-				AD8A2FEA2ADEDBB8006D17E2 /* AddExerciseView.swift */,
+				AD8A2FEA2ADEDBB8006D17E2 /* PickExerciseView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -528,6 +532,8 @@
 			children = (
 				AD8A2F972AD71D19006D17E2 /* UploadPostViewModel.swift */,
 				AD8A2FDF2ADCBFF7006D17E2 /* WorkoutViewModel.swift */,
+				AD2884B72AF1A43D006A558C /* ExerciseViewModel.swift */,
+				AD2884B92AF1A758006A558C /* SetViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -725,6 +731,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD8A2FDE2ADCA41C006D17E2 /* ExerciseView.swift in Sources */,
+				AD2884B82AF1A43D006A558C /* ExerciseViewModel.swift in Sources */,
 				AD28849F2AEEC735006A558C /* Comment.swift in Sources */,
 				AD28849D2AEEC323006A558C /* CommentsCell.swift in Sources */,
 				AD8A2FE02ADCBFF7006D17E2 /* WorkoutViewModel.swift in Sources */,
@@ -736,9 +743,10 @@
 				AD8A2F7E2AD6F649006D17E2 /* LoginView.swift in Sources */,
 				AD8A2FBF2AD858D5006D17E2 /* EditProfileViewModel.swift in Sources */,
 				AD8A2FA62AD72CC0006D17E2 /* AuthService.swift in Sources */,
+				AD2884BA2AF1A758006A558C /* SetViewModel.swift in Sources */,
 				AD8A2FB52AD776BF006D17E2 /* UserService.swift in Sources */,
 				AD2884B42AF0521D006A558C /* UserListViewModel.swift in Sources */,
-				AD8A2FEB2ADEDBB9006D17E2 /* AddExerciseView.swift in Sources */,
+				AD8A2FEB2ADEDBB9006D17E2 /* PickExerciseView.swift in Sources */,
 				AD8A2F902AD712AD006D17E2 /* Post.swift in Sources */,
 				AD8A2F392AD60689006D17E2 /* ImperiumApp.swift in Sources */,
 				AD8A2F8E2AD710E0006D17E2 /* CurrentUserProfileView.swift in Sources */,

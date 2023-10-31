@@ -9,7 +9,6 @@ import Foundation
 
 class SearchViewModel : ObservableObject {
     @Published var users = [User]()
-    @Published var isLoading = true
     
     init() {
         Task { try await fetchAllUsers()}
@@ -18,6 +17,5 @@ class SearchViewModel : ObservableObject {
     @MainActor
     func fetchAllUsers() async throws {
         self.users = try await UserService.fetchAllUsers()
-        self.isLoading = false
     }
 }

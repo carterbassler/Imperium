@@ -60,7 +60,7 @@ struct ProfileHeaderView: View {
             //pic and stats
             if viewModel.isLoading {
                 ProgressView()
-                    .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
+                    .frame(maxHeight: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
             } else {
                 HStack {
                     CircularProfileImageView(user : user, size : .large)
