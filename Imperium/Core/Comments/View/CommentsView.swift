@@ -30,8 +30,13 @@ struct CommentsView: View {
             
             ScrollView {
                 LazyVStack(spacing : 24) {
-                    ForEach(viewModel.comments) { comment in
-                        CommentCell(comment: comment)
+                    
+                    if viewModel.isLoading {
+                        ProgressView()
+                    } else {
+                        ForEach(viewModel.comments) { comment in
+                            CommentCell(comment: comment)
+                        }
                     }
                 }
             }

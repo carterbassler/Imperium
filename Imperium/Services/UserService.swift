@@ -11,6 +11,7 @@ import Firebase
 class UserService {
     
     @Published var currentUser : User?
+    @Published var isLoading : Bool = false
     
     static let shared = UserService()
     

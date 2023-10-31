@@ -10,6 +10,7 @@ import Firebase
 @MainActor
 class CommentsViewModel : ObservableObject {
     @Published var comments = [Comment]()
+    @Published var isLoading: Bool = false
     
     private let workout : Workout
     private let service : CommentService
@@ -33,8 +34,10 @@ class CommentsViewModel : ObservableObject {
     }
     
     func fetchComments() async throws {
+        self.isLoading = true
         self.comments = try await service.fetchComments()
         try await fetchUserDataForComments()
+        self.isLoading = false
     }
     
     private func fetchUserDataForComments() async throws {

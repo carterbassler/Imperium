@@ -58,65 +58,70 @@ struct ProfileHeaderView: View {
     var body: some View {
         VStack(spacing: 10) {
             //pic and stats
-            
-            HStack {
-                CircularProfileImageView(user : user, size : .large)
-                // name and bio
-                
-                Spacer()
-                
-                HStack(spacing : 8) {
-                    UserStatView(value: user.stats?.postsCount ?? 0, title: "Posts")
+            if viewModel.isLoading {
+                ProgressView()
+                    .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
+            } else {
+                HStack {
+                    CircularProfileImageView(user : user, size : .large)
+                    // name and bio
                     
-                    NavigationLink(value: UserListConfig.followers(uid: user.id)) {
-                        UserStatView(value: user.stats?.followersCount ?? 0, title: "Followers")
+                    Spacer()
+                    
+                    HStack(spacing : 8) {
+                        UserStatView(value: user.stats?.postsCount ?? 0, title: "Posts")
+                        
+                        NavigationLink(value: UserListConfig.followers(uid: user.id)) {
+                            UserStatView(value: user.stats?.followersCount ?? 0, title: "Followers")
+                        }
+                        
+                        NavigationLink(value: UserListConfig.following(uid : user.id)) {
+                            UserStatView(value: user.stats?.followingCount ?? 0, title: "Following")
+                        }
+                    }
+                }.padding(.horizontal)
+                
+                
+                VStack(alignment: .leading, spacing: 4) {
+                    if let fullname = user.fullname {
+                        Text(fullname)
+                            .font(.footnote)
+                            .fontWeight(.semibold)
                     }
                     
-                    NavigationLink(value: UserListConfig.following(uid : user.id)) {
-                        UserStatView(value: user.stats?.followingCount ?? 0, title: "Following")
+                    if let bio = user.bio {
+                        Text(bio)
+                            .font(.footnote)
                     }
+                    
                 }
-            }.padding(.horizontal)
-            
-            
-            VStack(alignment: .leading, spacing: 4) {
-                if let fullname = user.fullname {
-                    Text(fullname)
-                        .font(.footnote)
+                .frame(maxWidth : .infinity, alignment : .leading)
+                .padding(.horizontal)
+                
+                //action button
+                Button {
+                    if user.isCurrentUser {
+                        showEditProfile.toggle()
+                    } else {
+                        handleFollowTapped()
+                    }
+                } label: {
+                    Text(buttonTitle)
+                        .font(.subheadline)
                         .fontWeight(.semibold)
+                        .frame(width : 360, height: 32)
+                        .background(buttonBackgroundColor)
+                        .foregroundColor(buttonForegroundColor)
+                        .cornerRadius(6)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 6)
+                                .stroke(buttonBorderColor, lineWidth: 1))
                 }
                 
-                if let bio = user.bio {
-                    Text(bio)
-                        .font(.footnote)
-                }
-                
+                Divider()
             }
-            .frame(maxWidth : .infinity, alignment : .leading)
-            .padding(.horizontal)
-            
-            //action button
-            Button {
-                if user.isCurrentUser {
-                    showEditProfile.toggle()
-                } else {
-                    handleFollowTapped()
-                }
-            } label: {
-                Text(buttonTitle)
-                    .font(.subheadline)
-                    .fontWeight(.semibold)
-                    .frame(width : 360, height: 32)
-                    .background(buttonBackgroundColor)
-                    .foregroundColor(buttonForegroundColor)
-                    .cornerRadius(6)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 6)
-                        .stroke(buttonBorderColor, lineWidth: 1))
-            }
-            
-            Divider()
         }
+        
         .navigationDestination(for: UserListConfig.self, destination: { config in
             UserListView(config: config)
         })

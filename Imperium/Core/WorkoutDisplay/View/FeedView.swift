@@ -11,22 +11,19 @@ struct FeedView: View {
     @StateObject var viewModel = FeedViewModel()
     var body: some View {
         NavigationStack {
-            ScrollView {
-                LazyVStack(spacing : 32) {
-                    ForEach(viewModel.workouts) { workout in
-                        WorkoutCell(workout : workout)
+            if viewModel.isLoading {
+                ProgressView()
+            } else {
+                ScrollView {
+                    LazyVStack(spacing : 32) {
+                        ForEach(viewModel.workouts) { workout in
+                            WorkoutCell(workout : workout)
+                        }
                     }
+                    .padding(.top,8)
                 }
-                .padding(.top,8)
-            }
-            .navigationTitle("Feed")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                
-//                ToolbarItem(placement: .navigationBarTrailing) {
-//                    Image(systemName: "paperplane")
-//                        .imageScale(.large)
-//                }
+                .navigationTitle("Feed")
+                .navigationBarTitleDisplayMode(.inline)
             }
         }
     }

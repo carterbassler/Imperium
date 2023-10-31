@@ -10,6 +10,7 @@ import Foundation
 @MainActor
 class ProfileViewModel : ObservableObject {
     @Published var user : User
+    @Published var isLoading : Bool = false
     
     init(user : User) {
         print("DEBUG: Did init..")
@@ -21,7 +22,9 @@ class ProfileViewModel : ObservableObject {
             print("DEBUG: User stats already exists \(user.stats)")
             return
         }
+        isLoading = true
         Task {
+            defer { isLoading = false }
             self.user.stats = try await UserService.fetchUserStats(uid: user.id)
         }
     }
@@ -31,14 +34,18 @@ class ProfileViewModel : ObservableObject {
 
 extension ProfileViewModel {
     func follow() {
+        isLoading = true
         Task {
+            defer { isLoading = false }
             try await UserService.follow(uid: user.id)
             user.isFollowed = true
         }
     }
     
     func unfollow() {
+        isLoading = true
         Task {
+            defer { isLoading = false }
             try await UserService.unfollow(uid: user.id)
             user.isFollowed = false
         }
@@ -49,7 +56,9 @@ extension ProfileViewModel {
         guard user.isFollowed == nil else {
             return
         }
+        isLoading = true
         Task {
+            defer { isLoading = false }
             self.user.isFollowed = try await UserService.checkIfUserIsFollowed(uid: user.id)
         }
     }

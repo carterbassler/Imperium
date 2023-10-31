@@ -10,6 +10,7 @@ import Firebase
 
 class FeedViewModel : ObservableObject {
     @Published var workouts = [Workout]()
+    @Published var isLoading : Bool = true
     
     init() {
         Task { try await fetchWorkouts() }
@@ -18,5 +19,6 @@ class FeedViewModel : ObservableObject {
     @MainActor
     func fetchWorkouts() async throws {
         self.workouts = try await WorkoutService.fetchWorkouts()
+        self.isLoading = false
     }
 }

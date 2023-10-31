@@ -43,7 +43,7 @@ struct UserListView: View {
                     }
                 }
                 .padding(.top,8)
-                .searchable(text : $searchText, prompt : "Search...")
+//                .searchable(text : $searchText, prompt : "Search...")
             }
             .task {
                 await viewModel.fetchUsers(forConfig: config)

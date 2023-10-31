@@ -12,12 +12,16 @@ struct SearchView: View {
     @StateObject var viewModel = SearchViewModel()
     var body: some View {
         NavigationStack {
-            UserListView(config : .explore)
-                .navigationDestination(for: User.self, destination: {user in
-                    ProfileView(user : user)
-                })
-                .navigationTitle("All Users")
-                .navigationBarTitleDisplayMode(.inline)
+            if viewModel.isLoading {
+                ProgressView()
+            } else {
+                UserListView(config : .explore)
+                    .navigationDestination(for: User.self, destination: {user in
+                        ProfileView(user : user)
+                    })
+                    .navigationTitle("All Users")
+                    .navigationBarTitleDisplayMode(.inline)
+            }
         }
     }
 }
