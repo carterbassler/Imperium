@@ -9,28 +9,21 @@ import SwiftUI
 
 struct ExerciseView: View {
     @Binding var exercise : Exercise
+    @State private var showContextMenu: Bool = false
+    @State private var showAlert = false
     var body: some View {
         VStack {
             HStack {
                 Text(exercise.name)
                     .fontWeight(.semibold)
                 Spacer()
-                Image(systemName: "ellipsis")
-                    .imageScale(.medium)
-                    .contextMenu {
-                        Button(action: {
-                            // Logic to delete the exercise goes here
-                        }) {
-                            Text("Delete Exercise")
-                            Image(systemName: "trash")
-                        }
-                        Button(action: {
-                            // Logic to delete the exercise goes here
-                        }) {
-                            Text("Rename Exercise")
-                            Image(systemName: "pencil")
-                        }
-                    }
+                Menu {
+                    Button("Change Exercise", action: changeWorkout)
+                    Button("Delete Exercise", action: deleteExercise)
+                } label: {
+                    Image(systemName: "ellipsis")
+                        .foregroundColor(.black)
+                }
             }
             .padding()
             
@@ -71,8 +64,16 @@ struct ExerciseView: View {
     }
 }
 
+func deleteExercise() {
+    
+}
+
 func deleteSet(at offsets: IndexSet) {
     print("DELETED")
+}
+
+func changeWorkout() {
+    print("Hello")
 }
 
 #Preview {
