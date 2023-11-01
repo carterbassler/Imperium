@@ -12,10 +12,11 @@ struct Workout : Identifiable, Hashable, Codable {
     let id : String
     var name : String
     var exercises : [Exercise]
-    let date : Timestamp
     let ownerUid : String
     var user : User?
     var likes : Int
+    var start : Timestamp
+    var end : Timestamp?
     
     var didLike : Bool? = false
     
@@ -36,7 +37,8 @@ struct Workout : Identifiable, Hashable, Codable {
                         }
                     ]
                 },
-                "date": date,
+                "start": start,
+                "end" : end,
                 "ownerUid" : ownerUid,
                 "likes" : likes
             ]
@@ -80,10 +82,10 @@ let workout = Workout(
     id : NSUUID().uuidString,
     name: "Upper Body Workout",
     exercises: [exercise1, exercise2],
-    date: Timestamp(date: Date()),
     ownerUid: "",
     user : User.MOCK_USERS[1],
-    likes : 10
+    likes : 10,
+    start: Timestamp(date: Date())
 )
 
-let emptyWorkout = Workout(id : NSUUID().uuidString, name: "My New Workout", exercises: [], date: Timestamp(), ownerUid: "", user : User.MOCK_USERS[0], likes : 0)
+let emptyWorkout = Workout(id : NSUUID().uuidString, name: "My New Workout", exercises: [], ownerUid: "", user : User.MOCK_USERS[0], likes : 0, start: Timestamp())

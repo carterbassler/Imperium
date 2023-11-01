@@ -24,7 +24,7 @@ class WorkoutViewModel : ObservableObject {
         var workoutData = encodedWorkout
         workoutData["id"] = workoutRef.documentID
         workoutData["ownerUid"] = uid
-        workoutData["timestamp"] = Timestamp()
+        workoutData["end"] = Timestamp()
             
         try await workoutRef.setData(workoutData)
     }
@@ -33,7 +33,7 @@ class WorkoutViewModel : ObservableObject {
         guard let uid = Auth.auth().currentUser?.uid else { return nil }
         
         let postRef = Firestore.firestore().collection("workouts").document()
-        let newWorkout = Workout(id : postRef.documentID, name: "My New Workout", exercises: [], date: Timestamp(), ownerUid: uid, likes : 0)
+        let newWorkout = Workout(id : postRef.documentID, name: "My New Workout", exercises: [], ownerUid: uid, likes : 0, start : Timestamp())
         
         return newWorkout
     }

@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ActiveWorkoutView: View {
     @StateObject var viewModel = WorkoutViewModel()
+    @State private var elapsedTime : Int = 0
+    @State private var timer : Timer? = nil
     @State private var isEditingName: Bool = false
     @State var workout : Workout
     @Environment(\.dismiss) var dismiss
@@ -74,6 +76,14 @@ struct ActiveWorkoutView: View {
                 }
                 .padding(.top)
                 .padding(.horizontal)
+                
+                HStack {
+                    Text(String(format: "Elapsed Time: %02d:%02d:%02d", elapsedTime / 3600, (elapsedTime % 3600) / 60, elapsedTime % 60))
+                        .fontWeight(.semibold)
+                    Spacer()
+                }
+                .padding(.top)
+                .padding(.horizontal)
                     
                 ForEach(Array(workout.exercises.enumerated()), id: \.element.id) { index, exercise in
                     ExerciseView(viewModel: ExerciseViewModel(exercise: workout.exercises[index]))
@@ -95,7 +105,18 @@ struct ActiveWorkoutView: View {
                 Spacer()
             }
         }
+        .onAppear {
+            timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
+                elapsedTime += 1
+            }
+        }
         .navigationBarBackButtonHidden(true)
+    }
+    
+    var ongoingDuration: Int {
+        let currentTime = Date().timeIntervalSince1970
+        let startTime = workout.start.dateValue().timeIntervalSince1970
+        return Int(currentTime - startTime)
     }
 }
 
