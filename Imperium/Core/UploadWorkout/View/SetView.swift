@@ -8,14 +8,15 @@
 import SwiftUI
 
 struct SetView: View {
-    @StateObject var viewModel : SetViewModel
+    @Binding var set : aSet
+    var setNumber : Int
     var body: some View {
         VStack {
             HStack {
                 Spacer()
-                Text("\(viewModel.setNumber)").frame(width: 50)
+                Text("\(setNumber)").frame(width: 50)
                 Spacer()
-                TextField("lbs", text: $viewModel.set.weight)
+                TextField("lbs", text: $set.weight)
                     .font(.subheadline)
                     .padding(12)
                     .background(Color(.systemGray6))
@@ -23,7 +24,7 @@ struct SetView: View {
                     .frame(width: 100)
                     .keyboardType(.numberPad)
                 Spacer()
-                TextField("Reps", text: $viewModel.set.reps)
+                TextField("Reps", text: $set.reps)
                     .font(.subheadline)
                     .padding(12)
                     .background(Color(.systemGray6))
@@ -32,14 +33,12 @@ struct SetView: View {
                     .keyboardType(.numberPad)
                 Spacer()
                 HStack {
-                    Image(systemName: viewModel.set.isCompleted ? "checkmark.rectangle.fill" : "rectangle")
+                    Image(systemName: set.isCompleted ? "checkmark.rectangle.fill" : "rectangle")
                         .resizable()
                         .frame(width: 24, height: 24)
-                        .foregroundColor(viewModel.set.isCompleted ? .green : .gray)
+                        .foregroundColor(set.isCompleted ? .green : .gray)
                         .onTapGesture {
-                            Task {
-                                try await viewModel.toggleCompletion()
-                            }
+                            set.isCompleted.toggle()
                         }
                 }
                 Spacer()
@@ -49,6 +48,6 @@ struct SetView: View {
 }
 
 #Preview {
-    @State var previewSet = SetViewModel(set: set1, setNumber: 1)
-    return SetView(viewModel : previewSet)
+    @State var previewSet = aSet(id : "1", weight: "50", reps: "10", isCompleted: true)
+    return SetView(set: $previewSet, setNumber: 1)
 }

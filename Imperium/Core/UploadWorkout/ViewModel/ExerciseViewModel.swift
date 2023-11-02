@@ -5,13 +5,13 @@
 //  Created by Carter Bassler on 10/31/23.
 //
 
-import Foundation
+import SwiftUI
 
 class ExerciseViewModel : ObservableObject {
-    @Published var exercise : Exercise
+    @Binding var exercise : Exercise
     
-    init(exercise : Exercise) {
-        self.exercise = exercise
+    init(exercise: Binding<Exercise>) {
+            _exercise = exercise
     }
     
     func deleteExercise() async throws {

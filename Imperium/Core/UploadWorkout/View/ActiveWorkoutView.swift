@@ -47,7 +47,6 @@ struct ActiveWorkoutView: View {
         
         ScrollView {
             VStack {
-                
                 HStack {
                     if isEditingName {
                         TextField("Workout Name", text: $workout.name)
@@ -86,7 +85,7 @@ struct ActiveWorkoutView: View {
                 .padding(.horizontal)
                     
                 ForEach(Array(workout.exercises.enumerated()), id: \.element.id) { index, exercise in
-                    ExerciseView(viewModel: ExerciseViewModel(exercise: workout.exercises[index]))
+                    ExerciseView(exercise: $workout.exercises[index])
                 }
                 
                 

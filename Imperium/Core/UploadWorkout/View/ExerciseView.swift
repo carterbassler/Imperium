@@ -8,20 +8,19 @@
 import SwiftUI
 
 struct ExerciseView: View {
-    @StateObject var viewModel : ExerciseViewModel
     @State private var showContextMenu: Bool = false
     @State private var showAlert = false
     @State private var showPickExercisePopup : Bool = false
-    
+    @Binding var exercise : Exercise
     var body: some View {
         VStack {
             HStack {
-                Text(viewModel.exercise.name)
+                Text(exercise.name)
                     .fontWeight(.semibold)
                 Spacer()
                 Menu {
                     Button("Change Exercise", action: { showPickExercisePopup.toggle() })
-                    Button("Delete Exercise", action: { Task { try await viewModel.deleteExercise() }})
+                    Button("Delete Exercise", action: {})
                 } label: {
                     Image(systemName: "ellipsis")
                         .foregroundColor(.black)
@@ -42,15 +41,12 @@ struct ExerciseView: View {
                 Spacer()
             }
             
-            ForEach(Array(viewModel.exercise.sets.enumerated()), id: \.element.id) { index, set in
-                SetView(viewModel: SetViewModel(set: viewModel.exercise.sets[index], setNumber: index + 1))
+            ForEach(Array(exercise.sets.enumerated()), id: \.element.id) { index, set in
+                SetView(set: $exercise.sets[index], setNumber: index + 1)
             }
-            .onDelete(perform: viewModel.deleteSet)
             
             Button {
-                Task {
-                    try await viewModel.addSet()
-                }
+                exercise.sets.append(aSet(id : UUID().uuidString, weight: "", reps: "", isCompleted: false))
             } label : {
                 Text("Add Set")
                     .font(.subheadline)
@@ -64,7 +60,7 @@ struct ExerciseView: View {
         .overlay(
             Group {
                 if showPickExercisePopup {
-                    PickExerciseView(exerciseName: $viewModel.exercise.name, showPopup: $showPickExercisePopup)
+                    PickExerciseView(exerciseName: $exercise.name, showPopup: $showPickExercisePopup)
                         .frame(width: 300, height: 200)
                         .background(Color.white)
                         .cornerRadius(20)
@@ -79,6 +75,6 @@ struct ExerciseView: View {
 }
 
 #Preview {
-    @State var exercisePreview = ExerciseViewModel(exercise: exercise1)
-    return ExerciseView(viewModel: exercisePreview)
+    @State var exercisePreview = exercise1
+    return ExerciseView(exercise: $exercisePreview)
 }
